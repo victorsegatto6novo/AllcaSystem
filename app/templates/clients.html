@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Cadastro de clientes</h2>
+<form method="post" action="/clients" class="client-form">
+  <input type="text" name="code" placeholder="Código" required />
+  <input type="text" name="name" placeholder="Nome do cliente" required />
+  <input type="text" name="phone" placeholder="Telefone" />
+  <input type="text" name="address" placeholder="Endereço" />
+  <input type="text" name="zone" placeholder="Zona / Bairro" />
+  <button type="submit">Cadastrar</button>
+</form>
+
+<table>
+  <thead>
+    <tr>
+      <th>Código</th>
+      <th>Nome</th>
+      <th>Telefone</th>
+      <th>Endereço</th>
+      <th>Zona</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for c in clients %}
+    <tr>
+      <td>{{ c.code }}</td>
+      <td>{{ c.name }}</td>
+      <td>{{ c.phone or '-' }}</td>
+      <td>{{ c.address or '-' }}</td>
+      <td>{{ c.zone or '-' }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
