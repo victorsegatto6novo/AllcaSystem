@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Eventos de alarme</h2>
+<p>Arraste os cards entre colunas para atualizar o status de atendimento.</p>
+<div class="kanban">
+  {% for status in statuses %}
+  <section class="column" data-status="{{ status }}">
+    <h3>{{ status.replace('_', ' ').title() }}</h3>
+    <div class="dropzone">
+      {% for event in grouped[status] %}
+      <article class="event-card" draggable="true" data-event-id="{{ event.id }}">
+        <strong>{{ event.client.name }}</strong>
+        <small>#{{ event.client.code }}</small>
+        <p><b>{{ event.event_code }}</b> - {{ event.message }}</p>
+        <p>Partição: {{ event.partition or '-' }} | Zona: {{ event.zone or '-' }}</p>
+        <p>Origem: {{ event.source }}</p>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+  {% endfor %}
+</div>
+<script src="/static/kanban.js"></script>
+{% endblock %}
